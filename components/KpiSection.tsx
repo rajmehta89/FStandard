@@ -129,7 +129,13 @@ const KpiSection: React.FC = () => {
                                             fontWeight: 700,
                                             color: '#003459',
                                             marginBottom: '16px',
-                                            lineHeight: 1.2
+                                            lineHeight: 1.2,
+                                            minHeight: '58px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            textAlign: 'center',
+                                            whiteSpace: 'pre-line'
                                         }}
                                     >
                                         {kpi.title}

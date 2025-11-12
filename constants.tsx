@@ -2,10 +2,10 @@ import React from 'react';
 import type { FaqItem, EquityData, User } from './types';
 
 export const KPI_DATA = [
-  { title: "6% Trailing Drawdown", description: "Your safety net for consistent growth." },
-  { title: "70% Profit Share", description: "You keep the majority of your earnings." },
-  { title: "Dual-Asset Coverage", description: "Trade FX, Crypto, and Indices." },
-  { title: "20-Day Payouts", description: "Regular access to your profits." },
+  { title: "6% Trailing\nDrawdown", description: "Your safety net for consistent growth." },
+  { title: "70% Profit\nShare", description: "You keep the majority of your earnings." },
+  { title: "Dual-Asset\nCoverage", description: "Trade FX, Crypto, and Indices." },
+  { title: "20-Day\nPayouts", description: "Regular access to your profits." },
 ];
 
 export const HOW_IT_WORKS_STEPS = [
