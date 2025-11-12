@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
     <a 
       href={`#${link.toLowerCase()}`} 
       key={link} 
-      className="block md:inline-block px-4 py-2 rounded-lg text-base md:text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
+      className="block md:inline-block px-4 py-2 rounded-lg text-lg font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
     >
       {link}
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
@@ -40,14 +40,14 @@ export const Navbar: React.FC = () => {
         <>
           <a 
             href={`#/dashboard/${user.role}`} 
-            className="block md:inline-block px-4 py-2 rounded-lg text-base md:text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
+            className="block md:inline-block px-4 py-2 rounded-lg text-lg font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
           >
             Dashboard
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
           </a>
           <button 
             onClick={logout} 
-            className="w-full text-left md:w-auto md:text-center block md:inline-block px-4 py-2 rounded-lg text-base md:text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200"
+            className="w-full text-left md:w-auto md:text-center block md:inline-block px-4 py-2 rounded-lg text-lg font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200"
           >
             Logout
           </button>
@@ -56,14 +56,14 @@ export const Navbar: React.FC = () => {
         <>
           <a 
             href="#/signin" 
-            className="block md:inline-block px-4 py-2 rounded-lg text-base md:text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
+            className="block md:inline-block px-4 py-2 rounded-lg text-lg font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
           >
             Sign In
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
           </a>
           <a 
             href="#/signup" 
-            className="ml-0 md:ml-4 mt-2 md:mt-0 block md:inline-block px-6 py-2.5 bg-white text-primary font-bold rounded-xl shadow-lg hover:bg-background hover:shadow-xl hover:scale-105 transition-all duration-300 text-center"
+            className="ml-0 md:ml-4 mt-2 md:mt-0 block md:inline-block px-6 py-2.5 bg-white text-primary font-bold rounded-xl shadow-lg hover:bg-background hover:shadow-xl hover:scale-105 transition-all duration-300 text-center text-lg"
           >
             Sign Up
           </a>
