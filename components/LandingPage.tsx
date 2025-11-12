@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Button, Card, Accordion } from './ui';
 import { KPI_DATA, HOW_IT_WORKS_STEPS, FAQ_ITEMS } from '../constants';
 import { PLANS } from '../lib/plans';
-import type { EvalMode, AccountSize } from '../types';
+import type { EvalMode, AccountSize, FaqItem } from '../types';
 
 const HeroSection: React.FC = () => {
   return (
@@ -185,14 +185,43 @@ const PricingSection: React.FC = () => {
 };
 
 const FaqSection: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<string>('General');
+    const categories = Object.keys(FAQ_ITEMS);
+
+    const activeItems: FaqItem[] = FAQ_ITEMS[activeTab] || [];
+
     return (
-        <div className="bg-white py-16 sm:py-24" id="faq">
+        <div className="bg-background pt-8 pb-16 sm:pt-12 sm:pb-24" id="faq">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate">Frequently Asked Questions</h2>
+                <div className="text-center mb-8">
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate mb-3">
+                        Frequently Asked Questions
+                    </h2>
+                    <p className="text-lg text-body-text max-w-2xl mx-auto">
+                        Everything You Need to Know!
+                    </p>
                 </div>
-                <div className="mt-12 max-w-4xl mx-auto">
-                    <Accordion items={FAQ_ITEMS} />
+                
+                <div className="max-w-4xl mx-auto">
+                    {/* Tabs */}
+                    <div className="flex flex-wrap justify-center gap-2 mb-8">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                onClick={() => setActiveTab(category)}
+                                className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 ${
+                                    activeTab === category
+                                        ? 'bg-dark-slate text-white shadow-md'
+                                        : 'bg-white text-dark-slate border border-border-gray hover:bg-background hover:border-primary/30'
+                                }`}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Accordion */}
+                    <Accordion items={activeItems} />
                 </div>
             </div>
         </div>

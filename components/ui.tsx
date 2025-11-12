@@ -89,26 +89,45 @@ export const Accordion: React.FC<AccordionProps> = ({ items }) => {
 
   return (
     <div className="space-y-4">
-      {items.map((item, index) => (
-        <div key={index} className="border border-border-gray rounded-2xl overflow-hidden">
-          <button
-            onClick={() => toggleItem(index)}
-            className="w-full flex justify-between items-center text-left p-6 bg-white hover:bg-background transition-colors"
+      {items.map((item, index) => {
+        const isOpen = openIndex === index;
+        return (
+          <div 
+            key={index} 
+            className="bg-white border border-border-gray rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
           >
-            <span className="font-semibold text-base sm:text-lg text-dark-slate">{item.question}</span>
-            <span className={`transform transition-transform duration-300 ${openIndex === index ? 'rotate-180' : 'rotate-0'}`}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-            </span>
-          </button>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${openIndex === index ? 'max-h-96' : 'max-h-0'}`}
-          >
-            <div className="p-6 pt-0 text-body-text">
-              <p>{item.answer}</p>
+            <button
+              onClick={() => toggleItem(index)}
+              className="w-full flex items-center text-left p-6 hover:bg-background transition-colors group gap-4"
+            >
+              {item.icon && (
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="w-5 h-5">
+                    {item.icon}
+                  </div>
+                </div>
+              )}
+              <span className="flex-1 font-semibold text-base sm:text-lg text-dark-slate pr-4 group-hover:text-primary transition-colors">
+                {item.question}
+              </span>
+              <div className="flex-shrink-0">
+                <div className={`w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-primary text-white' : 'group-hover:bg-primary/20'}`}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+                    <path d="m6 9 6 6 6-6"/>
+                  </svg>
+                </div>
+              </div>
+            </button>
+            <div
+              className={`transition-all duration-200 ease-out overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
+            >
+              <div className="px-6 pb-6 pt-0 text-body-text leading-relaxed">
+                <p>{item.answer}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
