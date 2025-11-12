@@ -1,0 +1,103 @@
+import React, { useState, useContext } from 'react';
+import { Card, Button, Input } from './ui';
+import { AuthContext } from '../contexts/AuthContext';
+import type { AuthContextType } from '../types';
+
+type AuthMethod = 'email' | 'phone';
+
+const SignUpPage: React.FC = () => {
+  const [authMethod, setAuthMethod] = useState<AuthMethod>('email');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [otp, setOtp] = useState('');
+  const [otpSent, setOtpSent] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const { signup } = useContext(AuthContext) as AuthContextType;
+
+  const handleSignUp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+        if (authMethod === 'email') {
+            await signup({ email, password });
+        } else {
+            await signup({ phone, otp });
+        }
+    } catch (err: any) {
+        setError(err.message || 'Sign up failed. Please try again.');
+    } finally {
+        setLoading(false);
+    }
+  };
+
+  const handleSendOtp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (phone.length >= 10) {
+      setOtpSent(true);
+      setError('');
+    } else {
+      setError('Please enter a valid phone number.');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
+      <div className="max-w-md w-full">
+        <h2 className="font-serif text-center text-4xl font-bold text-ink mb-8">
+          Create Account
+        </h2>
+        <Card>
+          <div className="flex border-b mb-6">
+            <button
+              onClick={() => setAuthMethod('email')}
+              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'email' ? 'text-primary border-b-2 border-primary' : 'text-gray-500'}`}
+            >
+              Email & Password
+            </button>
+            <button
+              onClick={() => setAuthMethod('phone')}
+              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'phone' ? 'text-primary border-b-2 border-primary' : 'text-gray-500'}`}
+            >
+              Phone & OTP
+            </button>
+          </div>
+
+          <form onSubmit={handleSignUp} className="space-y-6">
+            {error && <p className="text-danger bg-danger/10 p-3 rounded-lg text-center">{error}</p>}
+            
+            {authMethod === 'email' ? (
+              <>
+                <Input id="email" label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <Input id="password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              </>
+            ) : (
+              <>
+                <Input id="phone" label="Phone Number" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required disabled={otpSent} />
+                {otpSent && (
+                  <Input id="otp" label="OTP" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required placeholder="Enter '123456'"/>
+                )}
+                {!otpSent && (
+                  <Button variant="outline" onClick={handleSendOtp} className="w-full">Send OTP</Button>
+                )}
+              </>
+            )}
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? 'Creating Account...' : 'Sign Up'}
+            </Button>
+          </form>
+
+          <p className="text-center text-gray-600 mt-6">
+            Already have an account? <a href="#/signin" className="font-semibold text-primary hover:underline">Sign in</a>
+          </p>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default SignUpPage;

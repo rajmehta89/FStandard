@@ -1,0 +1,5 @@
+{
+  "name": "FStandard Trading",
+  "description": "A responsive website and starter dashboard for FStandard, India’s first institutional-grade dual-asset proprietary trading firm. Features marketing pages, a trader dashboard with an equity curve, and a Gemini-powered market analysis widget.",
+  "requestFramePermissions": []
+}
