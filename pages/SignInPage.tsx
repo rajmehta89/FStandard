@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button, Input } from './ui';
+import { Card, Button, Input } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
 import type { AuthContextType } from '../types';
 

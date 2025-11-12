@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect, useContext } from 'react';
-import LandingPage from './components/LandingPage';
-import TraderDashboardPage from './components/DashboardPage';
-import AdminDashboardPage from './components/AdminDashboardPage';
-import SignInPage from './components/SignInPage';
-import SignUpPage from './components/SignUpPage';
+import LandingPage from './pages/LandingPage';
+import TraderDashboardPage from './pages/DashboardPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Navbar, Footer } from './components/shared';
 import { AuthContext } from './contexts/AuthContext';

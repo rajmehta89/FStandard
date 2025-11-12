@@ -1,5 +1,5 @@
 import React, { useContext, useState, useMemo, useEffect } from 'react';
-import { Card, Modal, Button, Input, Select } from './ui';
+import { Card, Modal, Button, Input, Select } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
 import { MOCK_USERS } from '../constants';
 import type { AuthContextType, User, UserRole, UserStatus } from '../types';

@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { Card, Button } from './ui';
+import { Card, Button } from '../components/ui';
 import { SAMPLE_EQUITY_DATA } from '../constants';
 import { generateMarketAnalysis } from '../services/geminiService';
 import { AuthContext } from '../contexts/AuthContext';

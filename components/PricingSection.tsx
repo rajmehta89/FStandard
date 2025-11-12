@@ -1,50 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Button, Card, Accordion } from './ui';
-import { KPI_DATA, HOW_IT_WORKS_STEPS, FAQ_ITEMS } from '../constants';
+import { Button } from './ui';
 import { PLANS } from '../lib/plans';
-import type { EvalMode, AccountSize, FaqItem } from '../types';
-import HeroSection from './HeroSection';
-
-const KpiSection: React.FC = () => {
-    return (
-        <div className="bg-background py-16 sm:py-24" id="kpi">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {KPI_DATA.map(kpi => (
-                        <Card key={kpi.title} className="text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                            <h3 className="font-serif text-3xl font-bold text-primary">{kpi.title}</h3>
-                            <p className="mt-2 text-body-text">{kpi.description}</p>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const HowItWorksSection: React.FC = () => {
-  return (
-    <div className="bg-white py-16 sm:py-24" id="how-it-works">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate">Your Journey to Funding</h2>
-          <p className="mt-4 text-lg text-body-text max-w-3xl mx-auto">A simple, transparent, and fair process designed for serious traders.</p>
-        </div>
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
-          {HOW_IT_WORKS_STEPS.map(step => (
-            <div key={step.step} className="text-center">
-              <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white font-bold text-2xl mx-auto">
-                {step.step}
-              </div>
-              <h3 className="mt-6 text-2xl font-semibold text-dark-slate">{step.title}</h3>
-              <p className="mt-2 text-body-text">{step.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+import type { EvalMode, AccountSize } from '../types';
 
 const formatInr = (amount: number) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 }).format(amount);
 
@@ -245,60 +202,5 @@ const PricingSection: React.FC = () => {
     );
 };
 
-const FaqSection: React.FC = () => {
-    const [activeTab, setActiveTab] = useState<string>('General');
-    const categories = Object.keys(FAQ_ITEMS);
+export default PricingSection;
 
-    const activeItems: FaqItem[] = FAQ_ITEMS[activeTab] || [];
-
-    return (
-        <div className="bg-background pt-8 pb-16 sm:pt-12 sm:pb-24" id="faq">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-8">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate mb-3">
-                        Frequently Asked Questions
-                    </h2>
-                    <p className="text-lg text-body-text max-w-2xl mx-auto">
-                        Everything You Need to Know!
-                    </p>
-                </div>
-                
-                <div className="max-w-4xl mx-auto">
-                    {/* Tabs */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-8">
-                        {categories.map((category) => (
-                            <button
-                                key={category}
-                                onClick={() => setActiveTab(category)}
-                                className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 ${
-                                    activeTab === category
-                                        ? 'bg-dark-slate text-white shadow-md'
-                                        : 'bg-white text-dark-slate border border-border-gray hover:bg-background hover:border-primary/30'
-                                }`}
-                            >
-                                {category}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Accordion */}
-                    <Accordion items={activeItems} />
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const LandingPage: React.FC = () => {
-  return (
-    <main>
-      <HeroSection />
-      <KpiSection />
-      <HowItWorksSection />
-      <PricingSection />
-      <FaqSection />
-    </main>
-  );
-};
-
-export default LandingPage;
