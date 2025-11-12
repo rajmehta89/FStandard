@@ -23,14 +23,14 @@ const FaqSection: React.FC = () => {
                 
                 <div className="max-w-4xl mx-auto">
                     {/* Tabs */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-8">
+                    <div className="flex flex-wrap justify-center gap-3 mb-8">
                         {categories.map((category) => (
                             <button
                                 key={category}
                                 onClick={() => setActiveTab(category)}
-                                className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 ${
+                                className={`px-8 py-3 rounded-xl font-semibold text-base transition-all duration-200 ${
                                     activeTab === category
-                                        ? 'bg-dark-slate text-white shadow-md'
+                                        ? 'bg-dark-slate text-white shadow-lg'
                                         : 'bg-white text-dark-slate border border-border-gray hover:bg-background hover:border-primary/30'
                                 }`}
                             >
@@ -40,7 +40,7 @@ const FaqSection: React.FC = () => {
                     </div>
 
                     {/* Accordion */}
-                    <Accordion items={activeItems} />
+                    <Accordion key={activeTab} items={activeItems} />
                 </div>
             </div>
         </div>

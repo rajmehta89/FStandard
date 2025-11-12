@@ -154,10 +154,10 @@ const PricingSection: React.FC = () => {
 
                 {/* Mode Toggle */}
                 <div className="flex justify-center items-center mb-8">
-                    <div className="bg-white p-1 rounded-lg shadow-md flex items-center border border-border-gray">
+                    <div className="bg-white p-1.5 rounded-xl shadow-lg flex items-center border border-border-gray">
                         <button
                             onClick={() => handleModeChange('1step')}
-                            className={`px-5 py-2 rounded-md font-semibold text-sm transition-all duration-200 ${
+                            className={`px-7 py-2.5 rounded-lg font-semibold text-base transition-all duration-200 ${
                                 mode === '1step'
                                     ? 'bg-primary text-white shadow-sm'
                                     : 'text-dark-slate hover:text-primary'
@@ -167,7 +167,7 @@ const PricingSection: React.FC = () => {
                         </button>
                         <button
                             onClick={() => handleModeChange('2step')}
-                            className={`px-5 py-2 rounded-md font-semibold text-sm transition-all duration-200 ${
+                            className={`px-7 py-2.5 rounded-lg font-semibold text-base transition-all duration-200 ${
                                 mode === '2step'
                                     ? 'bg-primary text-white shadow-sm'
                                     : 'text-dark-slate hover:text-primary'
