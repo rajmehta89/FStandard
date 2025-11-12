@@ -141,7 +141,7 @@ const PricingSection: React.FC = () => {
     const accountSizes = useMemo(() => Object.keys(PLANS.PLAN_SIZES) as AccountSize[], []);
 
     return (
-        <div className="bg-white py-20 sm:py-24" id="pricing" style={{ background: '#FFFFFF' }}>
+        <div className="bg-background py-20 sm:py-24" id="pricing" style={{ background: '#FFFFFF' }}>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-8">
                     <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate mb-3 max-w-4xl mx-auto">

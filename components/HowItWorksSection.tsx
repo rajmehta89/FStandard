@@ -13,7 +13,7 @@ const HowItWorksSection: React.FC = () => {
       className="how-it-works-container"
       id="how-it-works"
       style={{
-        background: '#FFFFFF',
+        background: '#F8FAFC',
         padding: '100px 60px',
         position: 'relative'
       }}
