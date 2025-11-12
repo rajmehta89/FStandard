@@ -1,6 +1,8 @@
 export interface FaqItem {
   question: string;
   answer: string;
+  icon?: React.ReactNode;
+  category?: string;
 }
 
 export interface EquityData {
