@@ -6,16 +6,52 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button: React.FC<ButtonProps> = ({ children, className, variant = 'primary', ...props }) => {
-  const baseClasses = 'px-6 py-3 font-semibold rounded-2xl shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
-  const variantClasses = {
-    primary: 'bg-primary text-white hover:bg-hover-blue focus:ring-primary',
-    secondary: 'bg-dark-slate text-white hover:bg-hover-blue focus:ring-dark-slate',
-    outline: 'bg-transparent border-2 border-primary text-primary hover:bg-[#EBF5FF] focus:ring-primary',
-    danger: 'bg-danger text-white hover:opacity-90 focus:ring-danger',
+  const baseClasses = 'px-6 py-3 font-semibold rounded-2xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  
+  const getVariantStyles = () => {
+    if (variant === 'primary') {
+      return {
+        className: 'bg-primary text-white hover:bg-[#0066A1] focus:ring-primary hover:-translate-y-0.5',
+        style: {
+          boxShadow: '0 4px 14px rgba(0, 52, 89, 0.25)',
+        },
+        hoverStyle: {
+          boxShadow: '0 6px 20px rgba(0, 52, 89, 0.35)',
+        }
+      };
+    }
+    if (variant === 'secondary') {
+      return {
+        className: 'bg-dark-slate text-white hover:bg-hover-blue focus:ring-dark-slate',
+        style: {},
+        hoverStyle: {}
+      };
+    }
+    if (variant === 'outline') {
+      return {
+        className: 'bg-transparent border-2 border-primary text-primary hover:bg-[rgba(0,52,89,0.05)] focus:ring-primary',
+        style: {},
+        hoverStyle: {}
+      };
+    }
+    return {
+      className: 'bg-danger text-white hover:opacity-90 focus:ring-danger',
+      style: {},
+      hoverStyle: {}
+    };
   };
 
+  const variantStyles = getVariantStyles();
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <button className={`${baseClasses} ${variantClasses[variant]} ${className}`} {...props}>
+    <button 
+      className={`${baseClasses} ${variantStyles.className} ${className}`}
+      style={isHovered && variant === 'primary' ? variantStyles.hoverStyle : variantStyles.style}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      {...props}
+    >
       {children}
     </button>
   );

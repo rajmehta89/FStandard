@@ -3,32 +3,7 @@ import { Button, Card, Accordion } from './ui';
 import { KPI_DATA, HOW_IT_WORKS_STEPS, FAQ_ITEMS } from '../constants';
 import { PLANS } from '../lib/plans';
 import type { EvalMode, AccountSize } from '../types';
-
-const HeroSection: React.FC = () => {
-  return (
-    <div className="relative bg-white overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-white" />
-          <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-primary/10 to-transparent" />
-        </div>
-        <div className="relative z-10 text-center md:text-left md:w-3/5">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-extrabold text-dark-slate tracking-tight">
-            Trade Our Capital. <br/>
-            <span className="text-primary">Keep Your Profits.</span>
-          </h1>
-          <p className="mt-6 text-lg md:text-xl text-body-text max-w-2xl mx-auto md:mx-0">
-            FStandard is India's first institutional-grade dual-asset proprietary trading firm, empowering disciplined traders with the capital they need to succeed.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-             <a href="#/signup"><Button variant="primary" className="text-lg">Start Evaluation</Button></a>
-             <a href="#rules"><Button variant="outline" className="text-lg">View Rules</Button></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import HeroSection from './HeroSection';
 
 const KpiSection: React.FC = () => {
     return (
