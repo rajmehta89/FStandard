@@ -60,11 +60,15 @@ export const Button: React.FC<ButtonProps> = ({ children, className, variant = '
 interface CardProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className }) => {
+export const Card: React.FC<CardProps> = ({ children, className, style }) => {
   return (
-    <div className={`bg-surface border border-border-gray rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow ${className}`}>
+    <div 
+      className={`bg-surface border border-border-gray rounded-2xl shadow-lg p-6 md:p-8 hover:shadow-xl transition-shadow ${className}`}
+      style={style}
+    >
       {children}
     </div>
   );

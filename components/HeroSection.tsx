@@ -14,7 +14,7 @@ const HeroSection: React.FC = () => {
         `}</style>
         <div className="hero-container flex flex-col lg:flex-row justify-between items-center gap-[60px]">
           {/* Left Section */}
-          <div className="w-full lg:w-[55%] flex flex-col gap-8">
+          <div className="w-full flex flex-col gap-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-[24px] w-fit" style={{ background: 'rgba(16, 185, 129, 0.1)' }}>
               <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#10B981' }}></div>
               <span className="text-sm font-medium" style={{ color: '#10B981' }}>Join 500+ Funded Traders Across India</span>
