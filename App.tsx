@@ -60,7 +60,7 @@ function App() {
             <svg className="w-20 h-20 text-primary mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" xmlns="http://www.w3.org/2000/svg">
               <path className="infinity-loader-path" d="M 6 12 C 6 8, 10 8, 12 12 C 14 16, 18 16, 18 12 C 18 8, 14 8, 12 12 C 10 16, 6 16, 6 12 Z"/>
             </svg>
-            <p className="mt-4 text-lg text-gray-600 font-serif tracking-wider">Loading FStandard</p>
+            <p className="mt-4 text-lg text-body-text font-serif tracking-wider">Loading FStandard</p>
           </div>
         </div>
       ) : (

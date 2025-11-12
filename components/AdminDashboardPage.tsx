@@ -79,7 +79,7 @@ const UserManagementTable: React.FC = () => {
             <div className="overflow-x-auto">
                 <table className="w-full text-left">
                     <thead>
-                        <tr className="border-b bg-gray-50">
+                        <tr className="border-b bg-background">
                             <th className="p-3 font-semibold">Name</th>
                             <th className="p-3 font-semibold">Email</th>
                             <th className="p-3 font-semibold">Role</th>
@@ -89,7 +89,7 @@ const UserManagementTable: React.FC = () => {
                     </thead>
                     <tbody>
                         {filteredUsers.map(user => (
-                            <tr key={user.id} className="border-b hover:bg-gray-50">
+                            <tr key={user.id} className="border-b hover:bg-background">
                                 <td className="p-3">{user.name}</td>
                                 <td className="p-3">{user.email}</td>
                                 <td className="p-3 capitalize">{user.role}</td>
@@ -106,7 +106,7 @@ const UserManagementTable: React.FC = () => {
                         ))}
                          {filteredUsers.length === 0 && (
                             <tr>
-                                <td colSpan={5} className="text-center p-6 text-gray-500">No users found.</td>
+                                <td colSpan={5} className="text-center p-6 text-body-text">No users found.</td>
                             </tr>
                         )}
                     </tbody>
@@ -154,7 +154,7 @@ const AdminDashboardPage: React.FC = () => {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-8">
                     <h1 className="font-serif text-3xl sm:text-4xl font-bold">Admin Dashboard</h1>
-                    <p className="text-gray-600">Welcome, {user?.email || 'Admin'}.</p>
+                    <p className="text-body-text">Welcome, {user?.email || 'Admin'}.</p>
                 </div>
 
                 <UserManagementTable />

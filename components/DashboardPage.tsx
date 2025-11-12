@@ -15,9 +15,9 @@ import { generateMarketAnalysis } from '../services/geminiService';
 import { AuthContext } from '../contexts/AuthContext';
 import type { AuthContextType } from '../types';
 
-const StatCard: React.FC<{ title: string, value: string, color?: string }> = ({ title, value, color = 'text-ink' }) => (
-    <div className="bg-gray-50 p-4 rounded-lg">
-        <p className="text-sm text-gray-500">{title}</p>
+const StatCard: React.FC<{ title: string, value: string, color?: string }> = ({ title, value, color = 'text-dark-slate' }) => (
+    <div className="bg-background p-4 rounded-lg border border-border-gray">
+        <p className="text-sm text-secondary-text">{title}</p>
         <p className={`text-2xl font-bold ${color}`}>{value}</p>
     </div>
 );
@@ -39,16 +39,16 @@ const EquityChart: React.FC = () => {
                         <YAxis domain={['dataMin - 2000', 'dataMax + 2000']} tickFormatter={(value) => `₹${Number(value).toLocaleString('en-IN')}`} />
                         <Tooltip formatter={(value) => [`₹${Number(value).toLocaleString('en-IN')}`, "Balance"]} />
                         <Legend />
-                        <Line type="monotone" dataKey="balance" stroke="#FF9500" strokeWidth={2} activeDot={{ r: 8 }} />
+                        <Line type="monotone" dataKey="balance" stroke="#0066A1" strokeWidth={2} activeDot={{ r: 8 }} />
                     </LineChart>
                 </ResponsiveContainer>
              </div>
              <div className="mt-4">
-                <div className="flex justify-between text-sm font-medium text-gray-600 mb-1">
+                <div className="flex justify-between text-sm font-medium text-body-text mb-1">
                     <span>Progress to Target</span>
                     <span>{progress.toFixed(1)}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div className="w-full bg-border-gray rounded-full h-2.5">
                     <div className="bg-primary h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
                 </div>
             </div>
@@ -91,7 +91,7 @@ const MarketAnalysisWidget: React.FC = () => {
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
                     placeholder="e.g., EUR/USD"
-                    className="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+                    className="flex-grow p-2 border border-border-gray rounded-lg focus:ring-primary focus:border-primary"
                 />
                 <Button onClick={handleFetchAnalysis} disabled={isLoading}>
                     {isLoading ? 'Analyzing...' : 'Analyze'}
@@ -99,7 +99,7 @@ const MarketAnalysisWidget: React.FC = () => {
             </div>
             {isLoading && <div className="text-center p-4">Loading analysis...</div>}
             {error && <div className="text-danger p-4 bg-danger/10 rounded-lg">{error}</div>}
-            {analysis && <div className="p-4 bg-gray-50 rounded-lg text-gray-700 whitespace-pre-wrap">{analysis}</div>}
+            {analysis && <div className="p-4 bg-background rounded-lg text-body-text whitespace-pre-wrap border border-border-gray">{analysis}</div>}
         </Card>
     )
 }
@@ -113,7 +113,7 @@ const TraderDashboardPage: React.FC = () => {
                 <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
                     <div>
                         <h1 className="font-serif text-3xl sm:text-4xl font-bold">Trader Dashboard</h1>
-                        <p className="text-gray-600">Welcome back, {user?.email || 'Trader'}!</p>
+                        <p className="text-body-text">Welcome back, {user?.email || 'Trader'}!</p>
                     </div>
                 </div>
 
@@ -137,7 +137,7 @@ const TraderDashboardPage: React.FC = () => {
                         </Card>
                         <Card>
                            <h3 className="text-xl font-bold font-serif mb-4">Withdrawals</h3>
-                           <div className="bg-green-50 text-success p-4 rounded-lg text-center">
+                           <div className="bg-background border border-success/20 text-success p-4 rounded-lg text-center">
                                <p className="font-semibold">Congratulations!</p>
                                <p>You are eligible for a payout.</p>
                                <Button className="mt-4" variant='secondary'>Request Payout</Button>
@@ -145,10 +145,10 @@ const TraderDashboardPage: React.FC = () => {
                         </Card>
                         <Card>
                            <h3 className="text-xl font-bold font-serif mb-4">Refer & Earn</h3>
-                           <p className="text-gray-600 mb-2">Share your link and earn a commission on successful referrals.</p>
-                           <div className="flex items-center p-2 bg-gray-100 rounded-lg">
+                           <p className="text-body-text mb-2">Share your link and earn a commission on successful referrals.</p>
+                           <div className="flex items-center p-2 bg-background border border-border-gray rounded-lg">
                                <input type="text" readOnly value="fstandard.in/r/TRDR123" className="bg-transparent flex-grow outline-none"/>
-                               <button className="text-primary font-semibold">Copy</button>
+                               <button className="text-hover-blue font-semibold hover:text-primary">Copy</button>
                            </div>
                         </Card>
                     </div>

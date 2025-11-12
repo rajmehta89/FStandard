@@ -47,20 +47,20 @@ const SignUpPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <h2 className="font-serif text-center text-4xl font-bold text-ink mb-8">
+        <h2 className="font-serif text-center text-4xl font-bold text-dark-slate mb-8">
           Create Account
         </h2>
         <Card>
           <div className="flex border-b mb-6">
             <button
               onClick={() => setAuthMethod('email')}
-              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'email' ? 'text-primary border-b-2 border-primary' : 'text-gray-500'}`}
+              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'email' ? 'text-primary border-b-2 border-primary' : 'text-body-text'}`}
             >
               Email & Password
             </button>
             <button
               onClick={() => setAuthMethod('phone')}
-              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'phone' ? 'text-primary border-b-2 border-primary' : 'text-gray-500'}`}
+              className={`flex-1 py-3 text-center font-semibold transition-colors ${authMethod === 'phone' ? 'text-primary border-b-2 border-primary' : 'text-body-text'}`}
             >
               Phone & OTP
             </button>
@@ -91,8 +91,8 @@ const SignUpPage: React.FC = () => {
             </Button>
           </form>
 
-          <p className="text-center text-gray-600 mt-6">
-            Already have an account? <a href="#/signin" className="font-semibold text-primary hover:underline">Sign in</a>
+          <p className="text-center text-body-text mt-6">
+            Already have an account? <a href="#/signin" className="font-semibold text-primary hover:text-hover-blue hover:underline">Sign in</a>
           </p>
         </Card>
       </div>

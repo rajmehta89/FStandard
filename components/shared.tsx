@@ -34,14 +34,14 @@ export const Navbar: React.FC = () => {
       ) : (
         <>
           <a href="#/signin" className="block md:inline-block px-3 py-2 rounded-md text-base md:text-sm font-medium hover:bg-white/10">Sign In</a>
-          <a href="#/signup" className="ml-0 md:ml-4 mt-2 md:mt-0 block md:inline-block px-5 py-2 bg-white text-primary font-bold rounded-2xl shadow-md hover:bg-gray-100 transition-colors text-center">Sign Up</a>
+          <a href="#/signup" className="ml-0 md:ml-4 mt-2 md:mt-0 block md:inline-block px-5 py-2 bg-white text-primary font-bold rounded-2xl shadow-md hover:bg-background transition-colors text-center">Sign Up</a>
         </>
       )}
     </>
   );
 
   return (
-    <nav className="bg-primary/95 text-white backdrop-blur-sm sticky top-0 z-50">
+    <nav className="bg-primary text-white backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
@@ -84,26 +84,26 @@ export const Navbar: React.FC = () => {
 
 export const Footer: React.FC = () => {
     return (
-        <footer className="bg-ink text-white">
+        <footer className="bg-dark-slate text-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
                         <Logo className="text-white" />
-                        <p className="mt-4 text-gray-400 text-sm">India’s first institutional-grade dual-asset proprietary trading firm.</p>
+                        <p className="mt-4 text-secondary-text text-sm">India's first institutional-grade dual-asset proprietary trading firm.</p>
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold">Quick Links</h3>
-                        <ul className="mt-4 space-y-2 text-gray-300">
-                            <li><a href="#rules" className="hover:text-primary">Rules</a></li>
-                            <li><a href="#pricing" className="hover:text-primary">Pricing</a></li>
-                            <li><a href="#faq" className="hover:text-primary">FAQ</a></li>
+                        <ul className="mt-4 space-y-2 text-secondary-text">
+                            <li><a href="#rules" className="hover:text-hover-blue">Rules</a></li>
+                            <li><a href="#pricing" className="hover:text-hover-blue">Pricing</a></li>
+                            <li><a href="#faq" className="hover:text-hover-blue">FAQ</a></li>
                         </ul>
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold">Legal</h3>
-                        <ul className="mt-4 space-y-2 text-gray-300">
-                            <li><a href="#" className="hover:text-primary">Terms of Service</a></li>
-                            <li><a href="#" className="hover:text-primary">Privacy Policy</a></li>
+                        <ul className="mt-4 space-y-2 text-secondary-text">
+                            <li><a href="#" className="hover:text-hover-blue">Terms of Service</a></li>
+                            <li><a href="#" className="hover:text-hover-blue">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div>
@@ -111,10 +111,10 @@ export const Footer: React.FC = () => {
                         <div className="flex mt-4 space-x-4">
                             {/* Social media icons */}
                         </div>
-                        <p className="mt-4 text-gray-400 text-sm">contact@fstandard.in</p>
+                        <p className="mt-4 text-secondary-text text-sm">contact@fstandard.in</p>
                     </div>
                 </div>
-                <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-500 text-sm">
+                <div className="mt-8 pt-8 border-t border-border-gray text-center text-secondary-text text-sm">
                     <p>&copy; {new Date().getFullYear()} FStandard. All rights reserved.</p>
                     <p className="mt-2">FStandard provides a simulated trading environment. All traders are independent contractors.</p>
                 </div>

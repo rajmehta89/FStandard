@@ -13,12 +13,12 @@ const HeroSection: React.FC = () => {
           <div className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-l from-primary/10 to-transparent" />
         </div>
         <div className="relative z-10 text-center md:text-left md:w-3/5">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-extrabold text-ink tracking-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-extrabold text-dark-slate tracking-tight">
             Trade Our Capital. <br/>
             <span className="text-primary">Keep Your Profits.</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto md:mx-0">
-            FStandard is India’s first institutional-grade dual-asset proprietary trading firm, empowering disciplined traders with the capital they need to succeed.
+          <p className="mt-6 text-lg md:text-xl text-body-text max-w-2xl mx-auto md:mx-0">
+            FStandard is India's first institutional-grade dual-asset proprietary trading firm, empowering disciplined traders with the capital they need to succeed.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
              <a href="#/signup"><Button variant="primary" className="text-lg">Start Evaluation</Button></a>
@@ -38,7 +38,7 @@ const KpiSection: React.FC = () => {
                     {KPI_DATA.map(kpi => (
                         <Card key={kpi.title} className="text-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
                             <h3 className="font-serif text-3xl font-bold text-primary">{kpi.title}</h3>
-                            <p className="mt-2 text-gray-600">{kpi.description}</p>
+                            <p className="mt-2 text-body-text">{kpi.description}</p>
                         </Card>
                     ))}
                 </div>
@@ -52,8 +52,8 @@ const HowItWorksSection: React.FC = () => {
     <div className="bg-white py-16 sm:py-24" id="how-it-works">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink">Your Journey to Funding</h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">A simple, transparent, and fair process designed for serious traders.</p>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate">Your Journey to Funding</h2>
+          <p className="mt-4 text-lg text-body-text max-w-3xl mx-auto">A simple, transparent, and fair process designed for serious traders.</p>
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
           {HOW_IT_WORKS_STEPS.map(step => (
@@ -61,8 +61,8 @@ const HowItWorksSection: React.FC = () => {
               <div className="flex items-center justify-center h-16 w-16 rounded-full bg-primary text-white font-bold text-2xl mx-auto">
                 {step.step}
               </div>
-              <h3 className="mt-6 text-2xl font-semibold text-ink">{step.title}</h3>
-              <p className="mt-2 text-gray-600">{step.description}</p>
+              <h3 className="mt-6 text-2xl font-semibold text-dark-slate">{step.title}</h3>
+              <p className="mt-2 text-body-text">{step.description}</p>
             </div>
           ))}
         </div>
@@ -82,15 +82,15 @@ const PricingCard: React.FC<{ size: AccountSize, mode: EvalMode }> = ({ size, mo
 
   return (
     <Card className="flex flex-col h-full border-2 border-transparent hover:border-primary transition-all duration-300">
-      <h3 className="font-serif text-3xl font-bold text-ink">{size} Funding</h3>
+      <h3 className="font-serif text-3xl font-bold text-dark-slate">{size} Funding</h3>
       <p className="text-primary font-semibold mt-1">{formatInr(accountValue)}</p>
 
       <div className="my-6 text-center">
         <span className="text-5xl font-bold">{formatInr(fee)}</span>
-        <span className="text-gray-500"> / one-time fee</span>
+        <span className="text-body-text"> / one-time fee</span>
       </div>
 
-      <ul className="space-y-4 text-gray-700 flex-grow">
+      <ul className="space-y-4 text-dark-slate flex-grow">
         {[
           { label: 'Profit Target', value: `${rules.profitTargetPct}%` },
           { label: 'Max Loss', value: `${rules.maxLossPct}%` },
@@ -100,7 +100,7 @@ const PricingCard: React.FC<{ size: AccountSize, mode: EvalMode }> = ({ size, mo
           { label: 'Weekend Holding', value: 'Allowed' },
         ].map(item => (
           <li key={item.label} className="flex justify-between items-center text-sm">
-            <span className="text-gray-500">{item.label}</span>
+            <span className="text-secondary-text">{item.label}</span>
             <span className={`font-semibold ${item.cap ? 'capitalize' : ''}`}>{item.value}</span>
           </li>
         ))}
@@ -156,14 +156,14 @@ const PricingSection: React.FC = () => {
         <div className="bg-background py-16 sm:py-24" id="pricing">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-3xl mx-auto">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink">Find Your Fit</h2>
-                    <p className="mt-4 text-lg text-gray-600">Choose an evaluation program that aligns with your trading strategy and goals.</p>
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate">Find Your Fit</h2>
+                    <p className="mt-4 text-lg text-body-text">Choose an evaluation program that aligns with your trading strategy and goals.</p>
                 </div>
 
                 <div className="mt-10 flex justify-center items-center gap-4">
                      <div className="bg-white p-1 rounded-2xl shadow-md flex items-center">
-                        <Button variant={mode === '1step' ? 'primary' : 'secondary'} onClick={() => handleModeChange('1step')} className={`w-32 ${mode !== '1step' && 'bg-gray-100 !text-ink hover:bg-gray-200'}`}>1-Step</Button>
-                        <Button variant={mode === '2step' ? 'primary' : 'secondary'} onClick={() => handleModeChange('2step')} className={`w-32 ${mode !== '2step' && 'bg-gray-100 !text-ink hover:bg-gray-200'}`}>2-Step</Button>
+                        <Button variant={mode === '1step' ? 'primary' : 'secondary'} onClick={() => handleModeChange('1step')} className={`w-32 ${mode !== '1step' && 'bg-background !text-dark-slate hover:bg-[#EBF5FF] hover:!text-primary'}`}>1-Step</Button>
+                        <Button variant={mode === '2step' ? 'primary' : 'secondary'} onClick={() => handleModeChange('2step')} className={`w-32 ${mode !== '2step' && 'bg-background !text-dark-slate hover:bg-[#EBF5FF] hover:!text-primary'}`}>2-Step</Button>
                     </div>
                 </div>
 
@@ -173,11 +173,11 @@ const PricingSection: React.FC = () => {
                     ))}
                 </div>
                  <div className="text-center mt-8">
-                    <button onClick={handleShare} className="text-sm text-gray-500 hover:text-primary flex items-center gap-2 mx-auto">
+                    <button onClick={handleShare} className="text-sm text-body-text hover:text-hover-blue flex items-center gap-2 mx-auto">
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>
                         {shareText}
                     </button>
-                    <p className="mt-2 text-xs text-gray-400">Illustrative fees. Taxes may apply.</p>
+                    <p className="mt-2 text-xs text-secondary-text">Illustrative fees. Taxes may apply.</p>
                  </div>
             </div>
         </div>
@@ -189,7 +189,7 @@ const FaqSection: React.FC = () => {
         <div className="bg-white py-16 sm:py-24" id="faq">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center">
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-ink">Frequently Asked Questions</h2>
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate">Frequently Asked Questions</h2>
                 </div>
                 <div className="mt-12 max-w-4xl mx-auto">
                     <Accordion items={FAQ_ITEMS} />

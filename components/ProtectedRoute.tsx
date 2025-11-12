@@ -25,8 +25,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, role }) => {
     return (
         <div className="flex flex-col justify-center items-center h-screen text-center">
             <h1 className="text-4xl font-bold text-danger">Access Denied</h1>
-            <p className="mt-4 text-gray-600">You do not have permission to view this page.</p>
-            <a href="#" className="mt-6 text-primary hover:underline">Go to Homepage</a>
+            <p className="mt-4 text-body-text">You do not have permission to view this page.</p>
+            <a href="#" className="mt-6 text-primary hover:text-hover-blue hover:underline">Go to Homepage</a>
         </div>
     );
   }
