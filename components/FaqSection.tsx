@@ -10,7 +10,7 @@ const FaqSection: React.FC = () => {
     const activeItems: FaqItem[] = FAQ_ITEMS[activeTab] || [];
 
     return (
-        <div className="bg-background pt-8 pb-16 sm:pt-12 sm:pb-24" id="faq">
+        <div className="bg-background py-20 sm:py-24" id="faq">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-8">
                     <h2 className="font-serif text-4xl md:text-5xl font-bold text-dark-slate mb-3">

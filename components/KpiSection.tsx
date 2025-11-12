@@ -16,7 +16,7 @@ const KpiSection: React.FC = () => {
             id="kpi"
             className="kpi-section-container"
             style={{
-                background: '#FFFFFF',
+                background: '#F8FAFC',
                 padding: '100px 60px',
                 borderTop: '1px solid #E2E8F0',
                 marginTop: 0
