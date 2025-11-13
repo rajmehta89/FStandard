@@ -28,6 +28,7 @@ export interface AuthContextType {
   login: (credentials: { email?: string; password?: string; phone?: string; otp?: string; }) => Promise<void>;
   signup: (details: { email?: string; password?: string; phone?: string; otp?: string; }) => Promise<void>;
   logout: () => void;
+  getAccessToken?: () => string | null;
 }
 
 // New types for the dynamic pricing plans

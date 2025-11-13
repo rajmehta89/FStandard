@@ -206,3 +206,113 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
         </div>
     );
 };
+
+interface ToastProps {
+    message: string;
+    isVisible: boolean;
+    onClose: () => void;
+    duration?: number;
+}
+
+export const Toast: React.FC<ToastProps> = ({ message, isVisible, onClose, duration = 4000 }) => {
+    React.useEffect(() => {
+        if (isVisible) {
+            const timer = setTimeout(() => {
+                onClose();
+            }, duration);
+            return () => clearTimeout(timer);
+        }
+    }, [isVisible, duration, onClose]);
+
+    if (!isVisible) return null;
+
+    return (
+        <div
+            className="fixed top-6 right-6 z-50"
+            style={{
+                animation: 'slideInToast 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+        >
+            <style>{`
+                @keyframes slideInToast {
+                    from {
+                        transform: translateX(calc(100% + 24px));
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                @keyframes slideOutToast {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(calc(100% + 24px));
+                        opacity: 0;
+                    }
+                }
+            `}</style>
+            <div
+                className="bg-white rounded-xl shadow-xl border border-border-gray overflow-hidden min-w-[360px] max-w-[480px]"
+                style={{
+                    boxShadow: '0 20px 60px rgba(0, 52, 89, 0.2), 0 0 0 1px rgba(0, 52, 89, 0.05)',
+                }}
+            >
+                {/* Success indicator bar */}
+                <div className="h-1 bg-gradient-to-r from-success to-[#059669]"></div>
+                
+                <div className="px-5 py-4 flex items-start gap-4">
+                    {/* Icon container */}
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-success/15 to-success/5 flex items-center justify-center mt-0.5">
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="20" 
+                            height="20" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="#10B981" 
+                            strokeWidth="3" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                            className="text-success"
+                        >
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    
+                    {/* Message */}
+                    <div className="flex-1 pt-1">
+                        <p className="text-dark-slate font-medium text-[15px] leading-relaxed">
+                            {message}
+                        </p>
+                    </div>
+                    
+                    {/* Close button */}
+                    <button
+                        onClick={onClose}
+                        className="flex-shrink-0 w-8 h-8 rounded-lg text-body-text hover:text-dark-slate hover:bg-gray-100 transition-all duration-200 flex items-center justify-center mt-0.5"
+                        aria-label="Close toast"
+                    >
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            width="18" 
+                            height="18" 
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2.5" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round"
+                        >
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};

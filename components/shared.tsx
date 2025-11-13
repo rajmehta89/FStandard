@@ -192,7 +192,7 @@ export const Footer: React.FC = () => {
                                 { href: '#', label: 'Blog' },
                                 { href: '#', label: 'Support' },
                             ].map((link) => (
-                                <li key={link.href}>
+                                <li key={link.label}>
                                     <a 
                                         href={link.href} 
                                         className="text-secondary-text hover:text-hover-blue transition-colors duration-200 text-sm"
@@ -214,7 +214,7 @@ export const Footer: React.FC = () => {
                                 { href: 'mailto:contact@fstandard.in', label: 'Contact' },
                                 { href: '#', label: 'Partners' },
                             ].map((link) => (
-                                <li key={link.href}>
+                                <li key={link.label}>
                                     <a 
                                         href={link.href} 
                                         className="text-secondary-text hover:text-hover-blue transition-colors duration-200 text-sm"

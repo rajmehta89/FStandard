@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button, Input } from '../components/ui';
+import { Card, Button, Input, Toast } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
 import type { AuthContextType } from '../types';
 
@@ -14,6 +14,7 @@ const SignUpPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showEmailToast, setShowEmailToast] = useState(false);
   
   const { signup } = useContext(AuthContext) as AuthContextType;
 
@@ -28,19 +29,46 @@ const SignUpPage: React.FC = () => {
             await signup({ phone, otp });
         }
     } catch (err: any) {
-        setError(err.message || 'Sign up failed. Please try again.');
+        // Check if this is an email confirmation requirement (not an error)
+        if (err.isEmailConfirmation || err.message === 'EMAIL_CONFIRMATION_REQUIRED') {
+          setShowEmailToast(true);
+          setError(''); // Clear any error message
+          // Optionally clear the form
+          setEmail('');
+          setPassword('');
+        } else {
+          setError(err.message || 'Sign up failed. Please try again.');
+        }
     } finally {
         setLoading(false);
     }
   };
 
-  const handleSendOtp = (e: React.MouseEvent) => {
+  const handleSendOtp = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (phone.length >= 10) {
-      setOtpSent(true);
-      setError('');
-    } else {
+    if (phone.length < 10) {
       setError('Please enter a valid phone number.');
+      return;
+    }
+    
+    setError('');
+    setLoading(true);
+    try {
+      // Send OTP via signup (without OTP parameter)
+      await signup({ phone });
+      setOtpSent(true);
+      setShowEmailToast(true);
+    } catch (err: any) {
+      // Check if OTP was sent (not an error)
+      if (err.isOtpSent || err.message === 'OTP_SENT' || err.message?.includes('OTP sent')) {
+        setOtpSent(true);
+        setShowEmailToast(true);
+        setError('');
+      } else {
+        setError(err.message || 'Failed to send OTP. Please try again.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +95,11 @@ const SignUpPage: React.FC = () => {
           </div>
 
           <form onSubmit={handleSignUp} className="space-y-6">
-            {error && <p className="text-danger bg-danger/10 p-3 rounded-lg text-center">{error}</p>}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center text-sm font-medium">
+                {error}
+              </div>
+            )}
             
             {authMethod === 'email' ? (
               <>
@@ -81,7 +113,9 @@ const SignUpPage: React.FC = () => {
                   <Input id="otp" label="OTP" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required placeholder="Enter '123456'"/>
                 )}
                 {!otpSent && (
-                  <Button variant="outline" onClick={handleSendOtp} className="w-full">Send OTP</Button>
+                  <Button variant="outline" onClick={handleSendOtp} className="w-full" disabled={loading}>
+                    {loading ? 'Sending OTP...' : 'Send OTP'}
+                  </Button>
                 )}
               </>
             )}
@@ -96,6 +130,16 @@ const SignUpPage: React.FC = () => {
           </p>
         </Card>
       </div>
+
+      {/* Email Verification / OTP Toast */}
+      <Toast
+        message={authMethod === 'email' 
+          ? " Please check your email to verify your account. We've sent a confirmation link to your email address."
+          : " OTP sent to your phone. Please enter the code to complete signup."}
+        isVisible={showEmailToast}
+        onClose={() => setShowEmailToast(false)}
+        duration={8000}
+      />
     </div>
   );
 };

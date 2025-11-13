@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button, Input } from '../components/ui';
+import { Card, Button, Input, Toast } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
 import type { AuthContextType } from '../types';
 
@@ -14,6 +14,8 @@ const SignInPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showOtpToast, setShowOtpToast] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
   
   const { login } = useContext(AuthContext) as AuthContextType;
 
@@ -27,20 +29,48 @@ const SignInPage: React.FC = () => {
         } else {
             await login({ phone, otp });
         }
+        // If login succeeds (no error thrown), show success toast
+        setShowSuccessToast(true);
     } catch (err: any) {
-        setError(err.message || 'Login failed. Please try again.');
+        // Check if OTP was sent (not an error)
+        if (err.isOtpSent || err.message === 'OTP_SENT') {
+          setShowOtpToast(true);
+          setOtpSent(true);
+          setError('');
+        } else {
+          // Display actual error message
+          setError(err.message || 'Login failed. Please try again.');
+        }
     } finally {
         setLoading(false);
     }
   };
 
-  const handleSendOtp = (e: React.MouseEvent) => {
+  const handleSendOtp = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (phone.length >= 10) {
-      setOtpSent(true);
-      setError('');
-    } else {
+    if (phone.length < 10) {
       setError('Please enter a valid phone number.');
+      return;
+    }
+    
+    setError('');
+    setLoading(true);
+    try {
+      // Send OTP via login (without OTP parameter)
+      await login({ phone });
+      setOtpSent(true);
+      setShowOtpToast(true);
+    } catch (err: any) {
+      // Check if OTP was sent (not an error)
+      if (err.isOtpSent || err.message === 'OTP_SENT' || err.message?.includes('OTP sent')) {
+        setOtpSent(true);
+        setShowOtpToast(true);
+        setError('');
+      } else {
+        setError(err.message || 'Failed to send OTP. Please try again.');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,7 +97,11 @@ const SignInPage: React.FC = () => {
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
-            {error && <p className="text-danger bg-danger/10 p-3 rounded-lg text-center">{error}</p>}
+            {error && (
+              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center text-sm font-medium">
+                {error}
+              </div>
+            )}
             
             {authMethod === 'email' ? (
               <>
@@ -81,7 +115,9 @@ const SignInPage: React.FC = () => {
                   <Input id="otp" label="OTP" type="text" value={otp} onChange={(e) => setOtp(e.target.value)} required placeholder="Enter '123456'"/>
                 )}
                 {!otpSent && (
-                  <Button variant="outline" onClick={handleSendOtp} className="w-full">Send OTP</Button>
+                  <Button variant="outline" onClick={handleSendOtp} className="w-full" disabled={loading}>
+                    {loading ? 'Sending OTP...' : 'Send OTP'}
+                  </Button>
                 )}
               </>
             )}
@@ -96,6 +132,22 @@ const SignInPage: React.FC = () => {
           </p>
         </Card>
       </div>
+
+      {/* OTP Sent Toast */}
+      <Toast
+        message="OTP sent to your phone. Please enter the code to continue."
+        isVisible={showOtpToast}
+        onClose={() => setShowOtpToast(false)}
+        duration={6000}
+      />
+
+      {/* Success Toast */}
+      <Toast
+        message="Sign in successful! Redirecting to your dashboard..."
+        isVisible={showSuccessToast}
+        onClose={() => setShowSuccessToast(false)}
+        duration={3000}
+      />
     </div>
   );
 };
