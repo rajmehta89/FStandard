@@ -6,7 +6,7 @@ interface LogoProps {
   className?: string;
 }
 const Logo: React.FC<LogoProps> = ({ className }) => (
-  <a href="#" className={`flex items-center space-x-2 group transition-transform duration-300 hover:scale-105 ${className}`}>
+  <a href="#/" className={`flex items-center space-x-2 group transition-transform duration-300 hover:scale-105 ${className}`}>
     <div className="relative">
       <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="transition-all duration-300 group-hover:rotate-12">
         <path d="M 6 12 C 6 8, 10 8, 12 12 C 14 16, 18 16, 18 12 C 18 8, 14 8, 12 12 C 10 16, 6 16, 6 12 Z" />
@@ -21,15 +21,71 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { user, logout } = useContext(AuthContext) as AuthContextType;
 
-  const navLinks = ["Rules", "Pricing", "FAQ"];
+  // Handle navigation to sections on landing page
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    setIsOpen(false); // Close mobile menu
+    
+    const currentHash = window.location.hash;
+    
+    // If not on landing page, navigate there first
+    if (currentHash && currentHash !== '#' && currentHash !== '#/' && currentHash !== '') {
+      window.location.hash = '#/';
+      // Wait for navigation, then scroll to section
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 300);
+    } else {
+      // Already on landing page, just scroll
+      scrollToSection(sectionId);
+    }
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    // Special handling for hero section - scroll to top
+    if (sectionId === 'hero') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
+    // Try multiple times in case page is still loading
+    const attemptScroll = (attempts = 0) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offset = 100; // Account for fixed navbar
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      } else if (attempts < 5) {
+        // Retry if element not found (page might still be loading)
+        setTimeout(() => attemptScroll(attempts + 1), 200);
+      }
+    };
+    attemptScroll();
+  };
+
+  const navLinks = [
+    { label: "Home", href: "#hero", isSection: true },
+    { label: "How It Works", href: "#how-it-works", isSection: true },
+    { label: "Pricing", href: "#pricing", isSection: true },
+    { label: "FAQ", href: "#faq", isSection: true }
+  ];
 
   const commonNavLinks = navLinks.map(link => (
     <a 
-      href={`#${link.toLowerCase()}`} 
-      key={link} 
+      href={link.href}
+      onClick={(e) => handleSectionClick(e, link.href.replace('#', ''))}
+      key={link.label} 
       className="block md:inline-block px-4 py-2 rounded-lg text-lg font-medium text-white/90 hover:text-white hover:bg-white/10 transition-all duration-200 relative group"
     >
-      {link}
+      {link.label}
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300"></span>
     </a>
   ));

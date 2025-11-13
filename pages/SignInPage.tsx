@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button, Input, Toast } from '../components/ui';
+import { Card, Button, Input } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import type { AuthContextType } from '../types';
 
 type AuthMethod = 'email' | 'phone';
@@ -14,10 +15,9 @@ const SignInPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showOtpToast, setShowOtpToast] = useState(false);
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
   
   const { login } = useContext(AuthContext) as AuthContextType;
+  const { showToast } = useToast();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,13 +29,12 @@ const SignInPage: React.FC = () => {
         } else {
             await login({ phone, otp });
         }
-        // If login succeeds (no error thrown), show success toast
-        setShowSuccessToast(true);
+        // If login succeeds, toast will be shown by AuthContext before redirect
     } catch (err: any) {
         // Check if OTP was sent (not an error)
         if (err.isOtpSent || err.message === 'OTP_SENT') {
-          setShowOtpToast(true);
           setOtpSent(true);
+          showToast("OTP sent to your phone. Please enter the code to continue.", 6000);
           setError('');
         } else {
           // Display actual error message
@@ -59,12 +58,12 @@ const SignInPage: React.FC = () => {
       // Send OTP via login (without OTP parameter)
       await login({ phone });
       setOtpSent(true);
-      setShowOtpToast(true);
+      showToast("OTP sent to your phone. Please enter the code to continue.", 6000);
     } catch (err: any) {
       // Check if OTP was sent (not an error)
       if (err.isOtpSent || err.message === 'OTP_SENT' || err.message?.includes('OTP sent')) {
         setOtpSent(true);
-        setShowOtpToast(true);
+        showToast("OTP sent to your phone. Please enter the code to continue.", 6000);
         setError('');
       } else {
         setError(err.message || 'Failed to send OTP. Please try again.');
@@ -132,22 +131,6 @@ const SignInPage: React.FC = () => {
           </p>
         </Card>
       </div>
-
-      {/* OTP Sent Toast */}
-      <Toast
-        message="OTP sent to your phone. Please enter the code to continue."
-        isVisible={showOtpToast}
-        onClose={() => setShowOtpToast(false)}
-        duration={6000}
-      />
-
-      {/* Success Toast */}
-      <Toast
-        message="Sign in successful! Redirecting to your dashboard..."
-        isVisible={showSuccessToast}
-        onClose={() => setShowSuccessToast(false)}
-        duration={3000}
-      />
     </div>
   );
 };

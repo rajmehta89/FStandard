@@ -133,10 +133,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name: authUser.user_metadata?.name || authUser.email?.split('@')[0],
         });
         
-        // Delay redirect slightly to allow success toast to be visible
-        setTimeout(() => {
-          window.location.hash = `#/dashboard/trader`;
-        }, 500);
+        // Store toast message for dashboard page
+        localStorage.setItem('pendingToast', JSON.stringify({ 
+          message: "Sign in successful! Welcome back.",
+          duration: 4000 
+        }));
+        
+        // Redirect immediately - toast will appear on dashboard
+        window.location.hash = `#/dashboard/trader`;
       }
     } catch (error: any) {
       console.error('Login error:', error);
@@ -224,8 +228,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           status: 'active',
           name: authUser.user_metadata?.name || authUser.email?.split('@')[0],
         });
-        
-        window.location.hash = '#/dashboard/trader';
+        // Store toast message for login page
+        localStorage.setItem('pendingToast', JSON.stringify({ 
+          message: "Account created successfully! Please sign in to continue.",
+          duration: 5000 
+        }));
+        window.location.hash = '#/signin';
       } else if (response.data.user) {
         // Email confirmation required - this is not an error, it's expected behavior
         // Return a special indicator that email confirmation is needed

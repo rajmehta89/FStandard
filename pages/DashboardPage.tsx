@@ -107,6 +107,11 @@ const MarketAnalysisWidget: React.FC = () => {
 const TraderDashboardPage: React.FC = () => {
     const { user } = useContext(AuthContext) as AuthContextType;
 
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }, []);
+
     return (
         <div className="bg-background min-h-screen">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

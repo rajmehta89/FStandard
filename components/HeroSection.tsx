@@ -3,7 +3,7 @@ import { Button } from './ui';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)' }}>
+    <div id="hero" className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)' }}>
       <div className="max-w-[1200px] mx-auto hero-outer-container" style={{ padding: '80px 40px' }}>
         <style>{`
           @media (max-width: 767px) {

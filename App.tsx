@@ -21,6 +21,14 @@ const AppContent: React.FC = () => {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
+
+  // Scroll to top when navigating to dashboard or auth pages
+  useEffect(() => {
+    const path = hash.split('?')[0];
+    if (path === '#/dashboard/trader' || path === '#/dashboard/admin' || path === '#/signin' || path === '#/signup') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [hash]);
   
   const renderContent = () => {
     const path = hash.split('?')[0]; // Ignore query params for routing

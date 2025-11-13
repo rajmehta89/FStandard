@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Card, Button, Input, Toast } from '../components/ui';
+import { Card, Button, Input } from '../components/ui';
 import { AuthContext } from '../contexts/AuthContext';
+import { useToast } from '../contexts/ToastContext';
 import type { AuthContextType } from '../types';
 
 type AuthMethod = 'email' | 'phone';
@@ -14,9 +15,9 @@ const SignUpPage: React.FC = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showEmailToast, setShowEmailToast] = useState(false);
   
   const { signup } = useContext(AuthContext) as AuthContextType;
+  const { showToast } = useToast();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,11 +32,17 @@ const SignUpPage: React.FC = () => {
     } catch (err: any) {
         // Check if this is an email confirmation requirement (not an error)
         if (err.isEmailConfirmation || err.message === 'EMAIL_CONFIRMATION_REQUIRED') {
-          setShowEmailToast(true);
           setError(''); // Clear any error message
-          // Optionally clear the form
+          // Clear the form
           setEmail('');
           setPassword('');
+          // Show persistent toast that will appear on login page
+          const toastMessage = authMethod === 'email' 
+            ? "Please check your email to verify your account. We've sent a confirmation link to your email address."
+            : "OTP sent to your phone. Please enter the code to complete signup.";
+          showToast(toastMessage, 8000);
+          // Redirect to login page immediately
+          window.location.hash = '#/signin';
         } else {
           setError(err.message || 'Sign up failed. Please try again.');
         }
@@ -57,12 +64,12 @@ const SignUpPage: React.FC = () => {
       // Send OTP via signup (without OTP parameter)
       await signup({ phone });
       setOtpSent(true);
-      setShowEmailToast(true);
+      showToast("OTP sent to your phone. Please enter the code to complete signup.", 6000);
     } catch (err: any) {
       // Check if OTP was sent (not an error)
       if (err.isOtpSent || err.message === 'OTP_SENT' || err.message?.includes('OTP sent')) {
         setOtpSent(true);
-        setShowEmailToast(true);
+        showToast("OTP sent to your phone. Please enter the code to complete signup.", 6000);
         setError('');
       } else {
         setError(err.message || 'Failed to send OTP. Please try again.');
@@ -130,16 +137,6 @@ const SignUpPage: React.FC = () => {
           </p>
         </Card>
       </div>
-
-      {/* Email Verification / OTP Toast */}
-      <Toast
-        message={authMethod === 'email' 
-          ? " Please check your email to verify your account. We've sent a confirmation link to your email address."
-          : " OTP sent to your phone. Please enter the code to complete signup."}
-        isVisible={showEmailToast}
-        onClose={() => setShowEmailToast(false)}
-        duration={8000}
-      />
     </div>
   );
 };
